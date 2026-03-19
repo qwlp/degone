@@ -120,11 +120,11 @@ function setupAnalysisInteractions() {
 
 function buildCharts() {
   const axisColor = "#7f8fa5";
-  const gridColor = "rgba(105, 181, 232, 0.10)";
+  const gridColor = "rgba(112, 153, 225, 0.10)";
   const slate = "#8ea4bf";
-  const amber = "#69B5E8";
-  const sage = "#8BC8EF";
-  const rose = "#4AA4DF";
+  const amber = "#7099E1";
+  const sage = "#97B5EA";
+  const rose = "#557FCD";
   const animation = {
     duration: 2200,
     easing: "easeOutQuart",
@@ -149,7 +149,7 @@ function buildCharts() {
       datasets: [{
         data: [112, 108, 105, 93, 88],
         borderColor: amber,
-        backgroundColor: "rgba(105, 181, 232, 0.12)",
+        backgroundColor: "rgba(112, 153, 225, 0.12)",
         fill: true,
         tension: 0.38,
         pointRadius: 0,
@@ -176,7 +176,7 @@ function buildCharts() {
           label: "Cases",
           data: [5, 8, 7, 10, 12, 9],
           borderColor: amber,
-          backgroundColor: "rgba(105, 181, 232, 0.14)",
+          backgroundColor: "rgba(112, 153, 225, 0.14)",
           fill: true,
           tension: 0.35,
           pointRadius: 3,
@@ -186,7 +186,7 @@ function buildCharts() {
           label: "High risk",
           data: [1, 2, 2, 3, 5, 4],
           borderColor: sage,
-          backgroundColor: "rgba(139, 200, 239, 0.14)",
+          backgroundColor: "rgba(151, 181, 234, 0.14)",
           fill: true,
           tension: 0.35,
           pointRadius: 3,
@@ -419,7 +419,7 @@ function buildCharts() {
       datasets: [{
         data: [86, 78, 74, 72, 63],
         borderColor: amber,
-        backgroundColor: "rgba(105, 181, 232, 0.16)",
+        backgroundColor: "rgba(112, 153, 225, 0.16)",
         pointBackgroundColor: amber,
         pointBorderColor: amber,
       }],
@@ -447,7 +447,7 @@ function buildCharts() {
       labels: ["Fever", "Platelets", "Hct rise", "History"],
       datasets: [{
         data: [4.0, 3.1, 2.7, 1.8],
-        backgroundColor: [rose, amber, "#9dd4f2", slate],
+        backgroundColor: [rose, amber, "#adc2ee", slate],
         borderRadius: 8,
         barThickness: 18,
       }],
