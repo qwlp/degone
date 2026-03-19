@@ -34,6 +34,7 @@ let autoplay = true;
 let sceneTimer = null;
 let intakeRunning = false;
 let dashboardRunning = false;
+let analysisReasonsOpen = false;
 
 function fitScenesToViewport() {
   const desktopMode = window.innerWidth > 1180;
@@ -82,9 +83,48 @@ function createChart(canvasId, config) {
   return chart;
 }
 
+function setAnalysisReasonsOpen(isOpen) {
+  analysisReasonsOpen = isOpen;
+
+  const layout = document.querySelector(".analysis-layout");
+  const panel = document.getElementById("analysis-reasons-panel");
+  const button = document.getElementById("analysis-reason-button");
+  const scene = document.querySelector(".scene-analysis");
+
+  if (!layout || !panel || !button) return;
+
+  layout.classList.toggle("reasons-open", isOpen);
+  scene?.classList.toggle("analysis-overlay-open", isOpen);
+  panel.setAttribute("aria-hidden", String(!isOpen));
+  button.setAttribute("aria-expanded", String(isOpen));
+
+  window.setTimeout(() => {
+    fitScenesToViewport();
+  }, isOpen ? 240 : 40);
+}
+
+function setupAnalysisInteractions() {
+  const button = document.getElementById("analysis-reason-button");
+  const closeButton = document.getElementById("analysis-overlay-close");
+  if (!button || button.dataset.bound === "true") return;
+
+  button.dataset.bound = "true";
+  button.addEventListener("click", () => {
+    setAnalysisReasonsOpen(!analysisReasonsOpen);
+  });
+
+  closeButton?.addEventListener("click", () => {
+    setAnalysisReasonsOpen(false);
+  });
+}
+
 function buildCharts() {
-  const axisColor = "#8f8f97";
-  const gridColor = "rgba(255,255,255,0.08)";
+  const axisColor = "#8d8175";
+  const gridColor = "rgba(125, 103, 81, 0.12)";
+  const slate = "#a8abae";
+  const amber = "#c57f4a";
+  const sage = "#6f9a7b";
+  const rose = "#b86456";
   const animation = {
     duration: 2200,
     easing: "easeOutQuart",
@@ -93,11 +133,11 @@ function buildCharts() {
     legend: { display: false },
     tooltip: {
       enabled: true,
-      backgroundColor: "#202024",
-      borderColor: "#484853",
+      backgroundColor: "#fffaf4",
+      borderColor: "#cebca8",
       borderWidth: 1,
-      titleColor: "#f5f5f7",
-      bodyColor: "#f5f5f7",
+      titleColor: "#241c17",
+      bodyColor: "#241c17",
       displayColors: false,
     },
   };
@@ -108,8 +148,8 @@ function buildCharts() {
       labels: ["D1", "D2", "D3", "D4", "D5"],
       datasets: [{
         data: [112, 108, 105, 93, 88],
-        borderColor: "#c88a5a",
-        backgroundColor: "rgba(200, 138, 90, 0.12)",
+        borderColor: amber,
+        backgroundColor: "rgba(197, 127, 74, 0.12)",
         fill: true,
         tension: 0.38,
         pointRadius: 0,
@@ -135,22 +175,22 @@ function buildCharts() {
         {
           label: "Cases",
           data: [5, 8, 7, 10, 12, 9],
-          borderColor: "#c88a5a",
-          backgroundColor: "rgba(200, 138, 90, 0.15)",
+          borderColor: amber,
+          backgroundColor: "rgba(197, 127, 74, 0.15)",
           fill: true,
           tension: 0.35,
           pointRadius: 3,
-          pointBackgroundColor: "#c88a5a",
+          pointBackgroundColor: amber,
         },
         {
           label: "High risk",
           data: [1, 2, 2, 3, 5, 4],
-          borderColor: "#79a98b",
-          backgroundColor: "rgba(121, 169, 139, 0.12)",
+          borderColor: sage,
+          backgroundColor: "rgba(111, 154, 123, 0.12)",
           fill: true,
           tension: 0.35,
           pointRadius: 3,
-          pointBackgroundColor: "#79a98b",
+          pointBackgroundColor: sage,
         },
       ],
     },
@@ -161,7 +201,7 @@ function buildCharts() {
         ...basePlugins,
         legend: {
           display: true,
-          labels: { color: "#b7b7c0", boxWidth: 10, boxHeight: 10, usePointStyle: true },
+          labels: { color: "#6d6258", boxWidth: 10, boxHeight: 10, usePointStyle: true },
         },
       },
       scales: {
@@ -177,7 +217,7 @@ function buildCharts() {
       labels: ["Low", "Medium", "High"],
       datasets: [{
         data: [9, 22, 15],
-        backgroundColor: ["#5e6670", "#c88a5a", "#b16861"],
+        backgroundColor: [slate, amber, rose],
         borderRadius: 6,
       }],
     },
@@ -198,7 +238,7 @@ function buildCharts() {
       labels: ["Pain", "Vomiting", "Bleeding", "Lethargy", "Fluid"],
       datasets: [{
         data: [18, 15, 7, 13, 10],
-        backgroundColor: "#79a98b",
+        backgroundColor: sage,
         borderRadius: 6,
       }],
     },
@@ -220,7 +260,7 @@ function buildCharts() {
       labels: ["D1", "D2", "D3", "D4", "D5", "D6", "D7+"],
       datasets: [{
         data: [4, 8, 12, 15, 19, 10, 6],
-        backgroundColor: "#c88a5a",
+        backgroundColor: amber,
         borderRadius: 6,
       }],
     },
@@ -241,8 +281,8 @@ function buildCharts() {
       labels: ["DENV-1", "DENV-2", "DENV-3", "DENV-4", "Unknown"],
       datasets: [{
         data: [6, 18, 11, 4, 7],
-        backgroundColor: ["#5e6670", "#c88a5a", "#79a98b", "#b16861", "#8b8b94"],
-        borderColor: "#202024",
+        backgroundColor: [slate, amber, sage, rose, "#b8aea3"],
+        borderColor: "#fffaf4",
         borderWidth: 4,
       }],
     },
@@ -255,7 +295,7 @@ function buildCharts() {
         legend: {
           display: true,
           position: "bottom",
-          labels: { color: "#b7b7c0", boxWidth: 10, boxHeight: 10 },
+          labels: { color: "#6d6258", boxWidth: 10, boxHeight: 10 },
         },
       },
     },
@@ -270,7 +310,7 @@ function buildCharts() {
           { x: 39.0, y: 102 }, { x: 39.2, y: 88 }, { x: 39.4, y: 79 }, { x: 38.9, y: 97 },
           { x: 38.3, y: 129 },
         ],
-        backgroundColor: "#c88a5a",
+        backgroundColor: amber,
         pointRadius: 6,
       }],
     },
@@ -291,8 +331,8 @@ function buildCharts() {
       labels: ["Unknown", "Improved", "Stable", "Severe", "Referred"],
       datasets: [{
         data: [8, 11, 13, 5, 9],
-        backgroundColor: ["#6b7280", "#79a98b", "#5e6670", "#b16861", "#c88a5a"],
-        borderColor: "#202024",
+        backgroundColor: ["#9ca3af", sage, slate, rose, amber],
+        borderColor: "#fffaf4",
         borderWidth: 4,
       }],
     },
@@ -305,7 +345,7 @@ function buildCharts() {
         legend: {
           display: true,
           position: "bottom",
-          labels: { color: "#b7b7c0", boxWidth: 10, boxHeight: 10 },
+          labels: { color: "#6d6258", boxWidth: 10, boxHeight: 10 },
         },
       },
     },
@@ -344,13 +384,13 @@ function buildCharts() {
         {
           label: "Cases",
           data: [9, 22, 15, 9],
-          backgroundColor: "#5e6670",
+          backgroundColor: slate,
           borderRadius: 6,
         },
         {
           label: "Referral load",
           data: [1, 4, 9, 9],
-          backgroundColor: "#c88a5a",
+          backgroundColor: amber,
           borderRadius: 6,
         },
       ],
@@ -362,7 +402,7 @@ function buildCharts() {
         ...basePlugins,
         legend: {
           display: true,
-          labels: { color: "#b7b7c0", boxWidth: 10, boxHeight: 10, usePointStyle: true },
+          labels: { color: "#6d6258", boxWidth: 10, boxHeight: 10, usePointStyle: true },
         },
       },
       scales: {
@@ -378,10 +418,10 @@ function buildCharts() {
       labels: ["Fever", "Platelets", "Hct", "Warnings", "History"],
       datasets: [{
         data: [86, 78, 74, 72, 63],
-        borderColor: "#c88a5a",
-        backgroundColor: "rgba(200, 138, 90, 0.18)",
-        pointBackgroundColor: "#c88a5a",
-        pointBorderColor: "#c88a5a",
+        borderColor: amber,
+        backgroundColor: "rgba(197, 127, 74, 0.16)",
+        pointBackgroundColor: amber,
+        pointBorderColor: amber,
       }],
     },
     options: {
@@ -401,24 +441,43 @@ function buildCharts() {
     },
   });
 
-  createChart("analysis-warning-chart", {
-    type: "doughnut",
+  createChart("analysis-driver-chart", {
+    type: "bar",
     data: {
-      labels: ["Active", "Inactive"],
+      labels: ["Fever", "Platelets", "Hct rise", "History"],
       datasets: [{
-        data: [3, 3],
-        backgroundColor: ["#b16861", "#383841"],
-        borderColor: "#27272c",
-        borderWidth: 4,
+        data: [4.0, 3.1, 2.7, 1.8],
+        backgroundColor: [rose, amber, "#d89c6d", slate],
+        borderRadius: 8,
+        barThickness: 18,
       }],
     },
     options: {
+      indexAxis: "y",
       maintainAspectRatio: false,
-      cutout: "68%",
       animation,
       plugins: {
         ...basePlugins,
         legend: { display: false },
+        tooltip: {
+          ...basePlugins.tooltip,
+          callbacks: {
+            label(context) {
+              return `Score contribution: ${context.raw}`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: { color: axisColor },
+          grid: { color: gridColor },
+          suggestedMax: 4.5,
+        },
+        y: {
+          ticks: { color: axisColor },
+          grid: { display: false },
+        },
       },
     },
   });
@@ -429,7 +488,7 @@ function buildCharts() {
       labels: ["Fever", "Platelets", "Warnings"],
       datasets: [{
         data: [86, 78, 72],
-        backgroundColor: ["#c88a5a", "#c88a5a", "#c88a5a"],
+        backgroundColor: [amber, amber, amber],
         borderRadius: 8,
       }],
     },
@@ -482,6 +541,10 @@ function setScene(index) {
     scene.classList.toggle("scene-active", sceneIndex === currentScene);
   });
 
+  if (currentScene !== 2 && analysisReasonsOpen) {
+    setAnalysisReasonsOpen(false);
+  }
+
   fitScenesToViewport();
 
   if (currentScene === 1) {
@@ -492,7 +555,7 @@ function setScene(index) {
     window.setTimeout(playDashboardSequence, 500);
   }
 
-  if ([0, 3, 4, 5].includes(currentScene)) {
+  if ([0, 2, 3, 4, 5].includes(currentScene)) {
     window.setTimeout(() => {
       replayVisibleCharts(scenes[currentScene]);
     }, 260);
@@ -638,6 +701,12 @@ function playDashboardSequence() {
 }
 
 function nextScene() {
+  if (currentScene === 2 && !analysisReasonsOpen) {
+    setAnalysisReasonsOpen(true);
+    resetAutoplayTimer();
+    return;
+  }
+
   setScene(currentScene + 1);
 }
 
@@ -659,6 +728,11 @@ function resetAutoplayTimer() {
 }
 
 window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && analysisReasonsOpen) {
+    setAnalysisReasonsOpen(false);
+    resetAutoplayTimer();
+    return;
+  }
   if (event.key === "ArrowRight") nextScene();
   if (event.key === "ArrowLeft") setScene(currentScene - 1);
   if (event.key.toLowerCase() === " ") {
@@ -674,7 +748,9 @@ window.addEventListener("resize", () => {
 
 window.addEventListener("load", () => {
   refreshIcons();
+  setupAnalysisInteractions();
   buildCharts();
   fitScenesToViewport();
+  setAnalysisReasonsOpen(false);
   setScene(0);
 });

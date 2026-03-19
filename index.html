@@ -207,7 +207,7 @@
         </div>
       </section>
 
-      <section class="scene" data-scene="3">
+      <section class="scene scene-analysis" data-scene="3">
         <div class="page">
           <div class="page-header">
             <div class="title-with-icon"><span class="icon-box"><i data-lucide="shield-alert"></i></span><h2>Analysis result</h2></div>
@@ -227,8 +227,14 @@
                   </div>
                 </div>
                 <div class="analysis-risk-badge">
-                  <span><i data-lucide="shield-alert"></i>Risk</span>
-                  <strong>High</strong>
+                  <div class="analysis-risk-copy">
+                    <span><i data-lucide="shield-alert"></i>Risk</span>
+                    <strong>High</strong>
+                  </div>
+                  <button class="analysis-reason-button" id="analysis-reason-button" type="button" aria-expanded="false" aria-controls="analysis-reasons-panel">
+                    <i data-lucide="panel-bottom-open"></i>
+                    <span>Reason</span>
+                  </button>
                 </div>
               </div>
 
@@ -262,9 +268,9 @@
                 </div>
                 <div class="analysis-visual-block">
                   <div class="analysis-visual-head">
-                    <span><i data-lucide="triangle-alert"></i>Warning mix</span>
+                    <span><i data-lucide="bar-chart-3"></i>Escalation drivers</span>
                   </div>
-                  <div class="chart-wrap analysis-chart-small"><canvas id="analysis-warning-chart"></canvas></div>
+                  <div class="chart-wrap analysis-chart-small"><canvas id="analysis-driver-chart"></canvas></div>
                 </div>
               </div>
             </section>
@@ -290,20 +296,59 @@
               </div>
             </section>
 
-            <section class="panel analysis-reasons-panel">
+            <section class="panel analysis-reasons-panel" id="analysis-reasons-panel" aria-hidden="true">
               <div class="panel-header">
                 <div>
                   <h3>Why this case escalates</h3>
-                  <p>Rules fired.</p>
+                  <p>Score drivers and watchouts.</p>
                 </div>
+                <button class="analysis-overlay-close" id="analysis-overlay-close" type="button" aria-label="Close reasons">
+                  <i data-lucide="x"></i>
+                </button>
               </div>
               <div class="analysis-reason-grid">
-                <div class="reason-row"><i data-lucide="thermometer"></i><span>Severe-fever threshold crossed</span></div>
-                <div class="reason-row"><i data-lucide="droplets"></i><span>Platelet count is low</span></div>
-                <div class="reason-row"><i data-lucide="flame"></i><span>Hematocrit rise is marked</span></div>
-                <div class="reason-row"><i data-lucide="triangle-alert"></i><span>Multiple warning signs active</span></div>
-                <div class="reason-row"><i data-lucide="history"></i><span>Prior infection adds concern</span></div>
-                <div class="reason-row"><i data-lucide="timer"></i><span>Late-phase timing needs watch</span></div>
+                <article class="reason-card reason-card-critical">
+                  <div class="reason-card-head">
+                    <span class="reason-chip"><i data-lucide="thermometer"></i>Critical</span>
+                    <strong>Fever remains above the severe threshold</strong>
+                  </div>
+                  <p>Temperature is holding at 39.2 C, which keeps this case in an unstable range rather than a routine febrile presentation.</p>
+                </article>
+                <article class="reason-card">
+                  <div class="reason-card-head">
+                    <span class="reason-chip"><i data-lucide="droplets"></i>Hematology</span>
+                    <strong>Platelets have dropped to 88</strong>
+                  </div>
+                  <p>The platelet trend is already low enough to increase monitoring intensity and supports the high-risk classification.</p>
+                </article>
+                <article class="reason-card">
+                  <div class="reason-card-head">
+                    <span class="reason-chip"><i data-lucide="flame"></i>Leak risk</span>
+                    <strong>Hematocrit rise suggests concentration</strong>
+                  </div>
+                  <p>A marked Hct rise adds concern for plasma leakage, which is why this case should not sit in a medium bucket.</p>
+                </article>
+                <article class="reason-card">
+                  <div class="reason-card-head">
+                    <span class="reason-chip"><i data-lucide="triangle-alert"></i>Burden</span>
+                    <strong>Warning signs are stacking together</strong>
+                  </div>
+                  <p>Multiple active warning signs matter more in combination than alone, pushing the severity profile upward.</p>
+                </article>
+                <article class="reason-card">
+                  <div class="reason-card-head">
+                    <span class="reason-chip"><i data-lucide="history"></i>Context</span>
+                    <strong>History increases downside risk</strong>
+                  </div>
+                  <p>Likely secondary infection raises concern because deterioration can accelerate faster than the raw vitals suggest.</p>
+                </article>
+                <article class="reason-card">
+                  <div class="reason-card-head">
+                    <span class="reason-chip"><i data-lucide="timer"></i>Timing</span>
+                    <strong>Day 5 sits in a sensitive window</strong>
+                  </div>
+                  <p>Late-phase timing aligns with the period when escalation risk typically becomes more clinically meaningful.</p>
+                </article>
               </div>
             </section>
           </div>
