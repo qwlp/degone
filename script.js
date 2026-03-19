@@ -278,7 +278,7 @@ function buildCharts() {
   createChart("serotype-chart", {
     type: "doughnut",
     data: {
-      labels: ["DENV-1", "DENV-2", "DENV-3", "DENV-4", "Unknown"],
+      labels: ["DENV-1", "DENV-2", "DENV-3", "DENV-4", "Not dengue"],
       datasets: [{
         data: [6, 18, 11, 4, 7],
         backgroundColor: [slate, amber, sage, rose, "#b8aea3"],
@@ -328,7 +328,7 @@ function buildCharts() {
   createChart("outcome-chart", {
     type: "doughnut",
     data: {
-      labels: ["Unknown", "Improved", "Stable", "Severe", "Referred"],
+      labels: ["Pending review", "Improved", "Stable", "Severe", "Referred"],
       datasets: [{
         data: [8, 11, 13, 5, 9],
         backgroundColor: ["#a9b8cb", sage, slate, rose, amber],
