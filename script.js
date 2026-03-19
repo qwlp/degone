@@ -119,12 +119,12 @@ function setupAnalysisInteractions() {
 }
 
 function buildCharts() {
-  const axisColor = "#8d8175";
-  const gridColor = "rgba(125, 103, 81, 0.12)";
-  const slate = "#a8abae";
-  const amber = "#c57f4a";
-  const sage = "#6f9a7b";
-  const rose = "#b86456";
+  const axisColor = "#7f8fa5";
+  const gridColor = "rgba(61, 120, 216, 0.10)";
+  const slate = "#8ea4bf";
+  const amber = "#3d78d8";
+  const sage = "#5d9cd6";
+  const rose = "#2f67c2";
   const animation = {
     duration: 2200,
     easing: "easeOutQuart",
@@ -133,11 +133,11 @@ function buildCharts() {
     legend: { display: false },
     tooltip: {
       enabled: true,
-      backgroundColor: "#fffaf4",
-      borderColor: "#cebca8",
+      backgroundColor: "#ffffff",
+      borderColor: "#bdd0e8",
       borderWidth: 1,
-      titleColor: "#241c17",
-      bodyColor: "#241c17",
+      titleColor: "#132033",
+      bodyColor: "#132033",
       displayColors: false,
     },
   };
@@ -149,7 +149,7 @@ function buildCharts() {
       datasets: [{
         data: [112, 108, 105, 93, 88],
         borderColor: amber,
-        backgroundColor: "rgba(197, 127, 74, 0.12)",
+        backgroundColor: "rgba(61, 120, 216, 0.12)",
         fill: true,
         tension: 0.38,
         pointRadius: 0,
@@ -176,7 +176,7 @@ function buildCharts() {
           label: "Cases",
           data: [5, 8, 7, 10, 12, 9],
           borderColor: amber,
-          backgroundColor: "rgba(197, 127, 74, 0.15)",
+          backgroundColor: "rgba(61, 120, 216, 0.14)",
           fill: true,
           tension: 0.35,
           pointRadius: 3,
@@ -186,7 +186,7 @@ function buildCharts() {
           label: "High risk",
           data: [1, 2, 2, 3, 5, 4],
           borderColor: sage,
-          backgroundColor: "rgba(111, 154, 123, 0.12)",
+          backgroundColor: "rgba(93, 156, 214, 0.14)",
           fill: true,
           tension: 0.35,
           pointRadius: 3,
@@ -201,7 +201,7 @@ function buildCharts() {
         ...basePlugins,
         legend: {
           display: true,
-          labels: { color: "#6d6258", boxWidth: 10, boxHeight: 10, usePointStyle: true },
+          labels: { color: "#5f6f85", boxWidth: 10, boxHeight: 10, usePointStyle: true },
         },
       },
       scales: {
@@ -295,7 +295,7 @@ function buildCharts() {
         legend: {
           display: true,
           position: "bottom",
-          labels: { color: "#6d6258", boxWidth: 10, boxHeight: 10 },
+          labels: { color: "#5f6f85", boxWidth: 10, boxHeight: 10 },
         },
       },
     },
@@ -331,7 +331,7 @@ function buildCharts() {
       labels: ["Unknown", "Improved", "Stable", "Severe", "Referred"],
       datasets: [{
         data: [8, 11, 13, 5, 9],
-        backgroundColor: ["#9ca3af", sage, slate, rose, amber],
+        backgroundColor: ["#a9b8cb", sage, slate, rose, amber],
         borderColor: "#fffaf4",
         borderWidth: 4,
       }],
@@ -345,7 +345,7 @@ function buildCharts() {
         legend: {
           display: true,
           position: "bottom",
-          labels: { color: "#6d6258", boxWidth: 10, boxHeight: 10 },
+          labels: { color: "#5f6f85", boxWidth: 10, boxHeight: 10 },
         },
       },
     },
@@ -419,7 +419,7 @@ function buildCharts() {
       datasets: [{
         data: [86, 78, 74, 72, 63],
         borderColor: amber,
-        backgroundColor: "rgba(197, 127, 74, 0.16)",
+        backgroundColor: "rgba(61, 120, 216, 0.16)",
         pointBackgroundColor: amber,
         pointBorderColor: amber,
       }],
@@ -447,7 +447,7 @@ function buildCharts() {
       labels: ["Fever", "Platelets", "Hct rise", "History"],
       datasets: [{
         data: [4.0, 3.1, 2.7, 1.8],
-        backgroundColor: [rose, amber, "#d89c6d", slate],
+        backgroundColor: [rose, amber, "#6aa8e4", slate],
         borderRadius: 8,
         barThickness: 18,
       }],
