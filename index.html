@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DeGone Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="presentation" id="presentation">
+      <section class="scene scene-active scene-intro" data-scene="1">
+        <div class="page">
+          <div class="intro-copy">
+            <div class="scene-mark">
+              <span class="icon-box"><i data-lucide="clipboard-plus"></i></span>
+              <span class="icon-box"><i data-lucide="shield-alert"></i></span>
+              <span class="icon-box"><i data-lucide="layout-dashboard"></i></span>
+            </div>
+            <h2>DeGone turns intake, triage, and review into one local-first flow.</h2>
+            <p>Fast capture. Fast review.</p>
+            <div class="intro-list">
+              <div><span class="icon-box"><i data-lucide="file-text"></i></span><span>Patient details, vitals, warning signs</span></div>
+              <div><span class="icon-box"><i data-lucide="activity"></i></span><span>Immediate risk, score, and serotype output</span></div>
+              <div><span class="icon-box"><i data-lucide="chart-column"></i></span><span>Charts, records, filtering, and follow-up</span></div>
+            </div>
+          </div>
+
+          <div class="intro-preview">
+            <div class="preview-window">
+              <div class="window-header">
+                <div class="window-title">
+                  <i data-lucide="monitor"></i>
+                  <span>DeGone overview</span>
+                </div>
+                <div class="window-meta">Intake • Analysis • Dashboard</div>
+              </div>
+              <div class="preview-grid">
+                <div class="preview-panel">
+                  <div class="preview-row">
+                    <label>Patient ID</label>
+                    <strong>DG-204</strong>
+                  </div>
+                  <div class="preview-row">
+                    <label>Illness day</label>
+                    <strong>Day 5</strong>
+                  </div>
+                  <div class="preview-row">
+                    <label>Platelets</label>
+                    <strong>88</strong>
+                  </div>
+                  <div class="preview-row">
+                    <label>Risk level</label>
+                    <strong class="tone-danger">High</strong>
+                  </div>
+                </div>
+                <div class="preview-panel preview-chart-panel">
+                  <canvas id="preview-mini-chart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-intake" data-scene="2">
+        <div class="page">
+          <div class="page-header">
+            <div class="title-with-icon"><span class="icon-box"><i data-lucide="clipboard-list"></i></span><h2>Patient intake</h2></div>
+            <p>Guided entry with live summary.</p>
+          </div>
+
+          <div class="app-layout">
+            <section class="panel form-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Patient details and vitals</h3>
+                  <p>Structured inputs.</p>
+                </div>
+                <div class="completion-box">
+                  <span>Completion</span>
+                  <strong id="completion-value">0 / 9</strong>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4>Patient details</h4>
+                <div class="field-grid">
+                  <label class="field">
+                    <span><i data-lucide="calendar-days"></i>Date of visit</span>
+                    <input value="2026-03-19" readonly />
+                  </label>
+                  <label class="field">
+                    <span><i data-lucide="user-round"></i>Patient ID</span>
+                    <input id="field-patient" value="" readonly />
+                  </label>
+                  <label class="field">
+                    <span><i data-lucide="timer"></i>Illness day</span>
+                    <input id="field-day" value="" readonly />
+                  </label>
+                  <label class="field">
+                    <span><i data-lucide="history"></i>Previous dengue</span>
+                    <input id="field-history" value="" readonly />
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4>Vitals and labs</h4>
+                <div class="field-grid">
+                  <label class="field">
+                    <span><i data-lucide="thermometer"></i>Temperature</span>
+                    <input id="field-temp" value="" readonly />
+                  </label>
+                  <label class="field">
+                    <span><i data-lucide="heart-pulse"></i>Pulse</span>
+                    <input id="field-pulse" value="" readonly />
+                  </label>
+                  <label class="field">
+                    <span><i data-lucide="droplets"></i>Platelet count</span>
+                    <input id="field-platelets" value="" readonly />
+                  </label>
+                  <label class="field">
+                    <span><i data-lucide="flame"></i>Hct change</span>
+                    <input id="field-hct" value="" readonly />
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4>Warning signs</h4>
+                <div class="warning-grid">
+                  <div class="warning-item" id="warn-pain"><i data-lucide="cross"></i><span>Abdominal pain</span></div>
+                  <div class="warning-item" id="warn-vomiting"><i data-lucide="triangle-alert"></i><span>Persistent vomiting</span></div>
+                  <div class="warning-item" id="warn-bleeding"><i data-lucide="droplets"></i><span>Bleeding</span></div>
+                  <div class="warning-item" id="warn-lethargy"><i data-lucide="activity"></i><span>Lethargy</span></div>
+                  <div class="warning-item" id="warn-liver"><i data-lucide="shield-plus"></i><span>Liver enlargement</span></div>
+                  <div class="warning-item" id="warn-fluid"><i data-lucide="scan-line"></i><span>Fluid accumulation</span></div>
+                </div>
+              </div>
+
+              <div class="toolbar">
+                <button class="button button-primary" id="analyze-button"><i data-lucide="sparkles"></i><span>Analyze</span></button>
+                <button class="button"><i data-lucide="arrow-right"></i><span>Dashboard</span></button>
+              </div>
+            </section>
+
+            <aside class="side-layout">
+              <section class="panel side-panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Case summary</h3>
+                    <p>Live status.</p>
+                  </div>
+                </div>
+                <div class="summary-rows">
+                  <div class="summary-row">
+                    <span><i data-lucide="user-round"></i>Patient</span>
+                    <strong id="brief-patient">Pending ID</strong>
+                  </div>
+                  <div class="summary-row">
+                    <span><i data-lucide="timer"></i>Illness day</span>
+                    <strong id="brief-day">Awaiting input</strong>
+                  </div>
+                  <div class="summary-row">
+                    <span><i data-lucide="history"></i>History</span>
+                    <strong id="brief-history">Awaiting input</strong>
+                  </div>
+                </div>
+                <div class="signal-list" id="signal-list">
+                  <span class="signal-item"><i data-lucide="scan-search"></i><span>Awaiting stronger severity signals</span></span>
+                </div>
+              </section>
+
+              <section class="panel side-panel result-panel" id="result-card">
+                <div class="panel-header">
+                  <div>
+                    <h3>Analysis</h3>
+                    <p>Triage output.</p>
+                  </div>
+                </div>
+                <div class="result-risk" id="result-risk">
+                  <span><i data-lucide="shield-alert"></i>Risk level</span>
+                  <strong id="risk-level">Pending</strong>
+                </div>
+                <div class="result-grid">
+                  <div>
+                    <label><i data-lucide="droplets"></i>Likely serotype</label>
+                    <p id="risk-serotype">Inconclusive</p>
+                  </div>
+                  <div>
+                    <label><i data-lucide="history"></i>Secondary concern</label>
+                    <p id="risk-secondary">Pending</p>
+                  </div>
+                </div>
+                <div class="logic-list" id="logic-list">
+                  <span class="logic-item"><i data-lucide="bot"></i><span>Logic hits will appear after analysis.</span></span>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" data-scene="3">
+        <div class="page">
+          <div class="page-header">
+            <div class="title-with-icon"><span class="icon-box"><i data-lucide="shield-alert"></i></span><h2>Analysis result</h2></div>
+            <p>Risk, score, signals.</p>
+          </div>
+
+          <div class="analysis-layout">
+            <section class="panel analysis-overview">
+              <div class="analysis-topline">
+                <div>
+                  <div class="analysis-patient">
+                    <span class="icon-box"><i data-lucide="user-round"></i></span>
+                    <div>
+                      <h3>DG-204</h3>
+                      <p>Day 5 presentation</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="analysis-risk-badge">
+                  <span><i data-lucide="shield-alert"></i>Risk</span>
+                  <strong>High</strong>
+                </div>
+              </div>
+
+              <div class="analysis-meta-grid">
+                <div class="analysis-meta-row">
+                  <span><i data-lucide="droplets"></i>Serotype</span>
+                  <strong>DENV-2</strong>
+                </div>
+                <div class="analysis-meta-row">
+                  <span><i data-lucide="history"></i>Secondary</span>
+                  <strong>Likely</strong>
+                </div>
+                <div class="analysis-meta-row">
+                  <span><i data-lucide="hash"></i>Score</span>
+                  <strong>13</strong>
+                </div>
+              </div>
+
+              <div class="analysis-flags">
+                <span class="analysis-flag"><i data-lucide="thermometer"></i><span>39.2 C</span></span>
+                <span class="analysis-flag"><i data-lucide="droplets"></i><span>88 platelets</span></span>
+                <span class="analysis-flag"><i data-lucide="activity"></i><span>3 warning signs</span></span>
+              </div>
+
+              <div class="analysis-visual-grid">
+                <div class="analysis-visual-block">
+                  <div class="analysis-visual-head">
+                    <span><i data-lucide="radar"></i>Risk profile</span>
+                  </div>
+                  <div class="chart-wrap analysis-chart-small"><canvas id="analysis-profile-chart"></canvas></div>
+                </div>
+                <div class="analysis-visual-block">
+                  <div class="analysis-visual-head">
+                    <span><i data-lucide="triangle-alert"></i>Warning mix</span>
+                  </div>
+                  <div class="chart-wrap analysis-chart-small"><canvas id="analysis-warning-chart"></canvas></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel analysis-signals-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Signals</h3>
+                  <p>Current values.</p>
+                </div>
+              </div>
+              <div class="analysis-signal-grid">
+                <div class="analysis-signal-row"><span><i data-lucide="thermometer"></i>Temp</span><strong>39.2 C</strong></div>
+                <div class="analysis-signal-row"><span><i data-lucide="heart-pulse"></i>Pulse</span><strong>108 bpm</strong></div>
+                <div class="analysis-signal-row"><span><i data-lucide="droplets"></i>Platelets</span><strong>88</strong></div>
+                <div class="analysis-signal-row"><span><i data-lucide="flame"></i>Hct</span><strong>21%</strong></div>
+              </div>
+              <div class="analysis-side-chart">
+                  <div class="analysis-visual-head">
+                    <span><i data-lucide="activity"></i>Severity trend</span>
+                  </div>
+                  <div class="chart-wrap analysis-chart-medium"><canvas id="analysis-severity-chart"></canvas></div>
+              </div>
+            </section>
+
+            <section class="panel analysis-reasons-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Why this case escalates</h3>
+                  <p>Rules fired.</p>
+                </div>
+              </div>
+              <div class="analysis-reason-grid">
+                <div class="reason-row"><i data-lucide="thermometer"></i><span>Severe-fever threshold crossed</span></div>
+                <div class="reason-row"><i data-lucide="droplets"></i><span>Platelet count is low</span></div>
+                <div class="reason-row"><i data-lucide="flame"></i><span>Hematocrit rise is marked</span></div>
+                <div class="reason-row"><i data-lucide="triangle-alert"></i><span>Multiple warning signs active</span></div>
+                <div class="reason-row"><i data-lucide="history"></i><span>Prior infection adds concern</span></div>
+                <div class="reason-row"><i data-lucide="timer"></i><span>Late-phase timing needs watch</span></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-dashboard" data-scene="4">
+        <div class="page">
+          <div class="page-header">
+            <div class="title-with-icon"><span class="icon-box"><i data-lucide="layout-dashboard"></i></span><h2>Dashboard review</h2></div>
+            <p>Filters, metrics, charts.</p>
+          </div>
+
+          <div class="dashboard-layout">
+            <div class="panel filters-panel">
+              <div class="filter-row">
+                <div class="filter-box">
+                  <label><i data-lucide="search"></i>Patient ID</label>
+                  <div>DG-204</div>
+                </div>
+                <div class="filter-box">
+                  <label><i data-lucide="shield-alert"></i>Risk</label>
+                  <div>High</div>
+                </div>
+                <div class="filter-box">
+                  <label><i data-lucide="droplets"></i>Serotype</label>
+                  <div>DENV-2</div>
+                </div>
+                <div class="filter-box">
+                  <label><i data-lucide="download"></i>Actions</label>
+                  <div>Export CSV</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="panel stat-panel">
+                <span><i data-lucide="database"></i>Total patients</span>
+                <strong id="metric-total">00</strong>
+                <p>All local records in the current session.</p>
+              </div>
+              <div class="panel stat-panel">
+                <span><i data-lucide="siren"></i>High-risk count</span>
+                <strong id="metric-risk">00</strong>
+                <p>Cases requiring closer attention.</p>
+              </div>
+              <div class="panel stat-panel">
+                <span><i data-lucide="droplets"></i>Average platelet count</span>
+                <strong id="metric-platelets">--</strong>
+                <p>Across the filtered cohort.</p>
+              </div>
+              <div class="panel stat-panel">
+                <span><i data-lucide="thermometer"></i>Average temperature</span>
+                <strong id="metric-temp">--</strong>
+                <p>Current filtered case mix.</p>
+              </div>
+            </div>
+
+            <div class="dashboard-main">
+              <div class="panel chart-panel chart-panel-wide">
+                <div class="panel-header">
+                  <div>
+                  <h3>Daily clinic volume</h3>
+                  <p>Cases over time.</p>
+                </div>
+              </div>
+                <div class="chart-wrap"><canvas id="volume-chart"></canvas></div>
+              </div>
+
+              <div class="panel chart-panel">
+                <div class="panel-header">
+                  <div>
+                  <h3>Risk distribution</h3>
+                  <p>Risk mix.</p>
+                </div>
+              </div>
+                <div class="chart-wrap small"><canvas id="risk-chart"></canvas></div>
+              </div>
+
+              <div class="panel chart-panel">
+                <div class="panel-header">
+                  <div>
+                  <h3>Warning sign frequency</h3>
+                  <p>Marker counts.</p>
+                </div>
+              </div>
+                <div class="chart-wrap small"><canvas id="warning-chart"></canvas></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" data-scene="5">
+        <div class="page">
+          <div class="page-header">
+            <div class="title-with-icon"><span class="icon-box"><i data-lucide="chart-scatter"></i></span><h2>More analytics</h2></div>
+            <p>Distributions and correlations.</p>
+          </div>
+
+          <div class="analytics-grid">
+            <section class="panel chart-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Illness day distribution</h3>
+                  <p>Day spread.</p>
+                </div>
+              </div>
+              <div class="chart-wrap small"><canvas id="day-chart"></canvas></div>
+            </section>
+
+            <section class="panel chart-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Serotype distribution</h3>
+                  <p>Likely outputs.</p>
+                </div>
+              </div>
+              <div class="chart-wrap small"><canvas id="serotype-chart"></canvas></div>
+            </section>
+
+            <section class="panel chart-panel chart-panel-wide-2">
+              <div class="panel-header">
+                <div>
+                  <h3>Temperature vs platelet scatter</h3>
+                  <p>Correlation view.</p>
+                </div>
+              </div>
+              <div class="chart-wrap"><canvas id="scatter-chart"></canvas></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" data-scene="6">
+        <div class="page">
+          <div class="page-header">
+            <div class="title-with-icon"><span class="icon-box"><i data-lucide="chart-pie"></i></span><h2>Outcomes</h2></div>
+            <p>Referral load and follow-up status.</p>
+          </div>
+
+          <div class="analytics-grid analytics-grid-outcomes">
+            <section class="panel chart-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Outcome distribution</h3>
+                  <p>Status mix.</p>
+                </div>
+              </div>
+              <div class="chart-wrap small"><canvas id="outcome-chart"></canvas></div>
+            </section>
+
+            <section class="panel chart-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Platelet trend</h3>
+                  <p>Latest sessions.</p>
+                </div>
+              </div>
+              <div class="chart-wrap small"><canvas id="platelet-chart"></canvas></div>
+            </section>
+
+            <section class="panel chart-panel chart-panel-wide-2">
+              <div class="panel-header">
+                <div>
+                  <h3>Referral and risk</h3>
+                  <p>Escalation volume.</p>
+                </div>
+              </div>
+              <div class="chart-wrap"><canvas id="referral-chart"></canvas></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" data-scene="7">
+        <div class="page">
+          <div class="page-header">
+            <div class="title-with-icon"><span class="icon-box"><i data-lucide="square-pen"></i></span><h2>Record detail</h2></div>
+            <p>Compact patient report.</p>
+          </div>
+
+          <div class="detail-layout detail-layout-report">
+            <section class="panel report-hero">
+              <div class="panel-header">
+                <div>
+                  <h3>DG-204</h3>
+                  <p>High-risk case</p>
+                </div>
+                <div class="report-status">
+                  <span class="report-pill report-pill-danger"><i data-lucide="shield-alert"></i><span>High</span></span>
+                  <span class="report-pill"><i data-lucide="badge-alert"></i><span>Referred</span></span>
+                </div>
+              </div>
+              <div class="report-grid">
+                <div class="detail-item"><span><i data-lucide="calendar-days"></i>Date</span><strong>Mar 19, 2026</strong></div>
+                <div class="detail-item"><span><i data-lucide="timer"></i>Illness day</span><strong>Day 5</strong></div>
+                <div class="detail-item"><span><i data-lucide="thermometer"></i>39.2 C</span><strong>Fever</strong></div>
+                <div class="detail-item"><span><i data-lucide="heart-pulse"></i>108 bpm</span><strong>Pulse</strong></div>
+                <div class="detail-item"><span><i data-lucide="droplets"></i>88</span><strong>Platelets</strong></div>
+                <div class="detail-item"><span><i data-lucide="flame"></i>21%</span><strong>Hct rise</strong></div>
+                <div class="detail-item"><span><i data-lucide="history"></i>Yes</span><strong>Prior infection</strong></div>
+                <div class="detail-item"><span><i data-lucide="droplets"></i>DENV-2</span><strong>Serotype</strong></div>
+              </div>
+              <div class="report-flags">
+                <span class="signal-item"><i data-lucide="cross"></i><span>Abdominal pain</span></span>
+                <span class="signal-item"><i data-lucide="triangle-alert"></i><span>Persistent vomiting</span></span>
+                <span class="signal-item"><i data-lucide="activity"></i><span>Lethargy</span></span>
+              </div>
+            </section>
+
+            <section class="panel report-side">
+              <div class="panel-header">
+                <div>
+                  <h3>Clinical note</h3>
+                  <p>Next action.</p>
+                </div>
+              </div>
+              <div class="status-card report-side-stack">
+                <div class="detail-item detail-item-strong"><span><i data-lucide="badge-alert"></i>Outcome</span><strong>Referred</strong></div>
+                <div class="report-note-points">
+                  <div class="logic-row"><i data-lucide="shield-alert"></i><span>Escalated for continued observation.</span></div>
+                  <div class="logic-row"><i data-lucide="droplets"></i><span>Low platelet trend remains active.</span></div>
+                  <div class="logic-row"><i data-lucide="triangle-alert"></i><span>Persistent warning signs require monitoring.</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="button button-primary"><i data-lucide="save"></i><span>Save updates</span></button>
+                  <button class="button"><i data-lucide="x"></i><span>Close detail</span></button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-closing" data-scene="8">
+        <div class="page closing-page">
+          <div class="closing-card">
+            <div class="scene-mark">
+              <span class="icon-box"><i data-lucide="clipboard-list"></i></span>
+              <span class="icon-box"><i data-lucide="shield-alert"></i></span>
+              <span class="icon-box"><i data-lucide="chart-column"></i></span>
+            </div>
+            <h2>DeGone now reads like a real product presentation.</h2>
+            <p>Better type. Better icons. Real charts.</p>
+            <div class="closing-notes">
+              <div><span class="icon-box"><i data-lucide="clipboard-list"></i></span><span>Intake walkthrough</span></div>
+              <div><span class="icon-box"><i data-lucide="shield-alert"></i></span><span>Analysis reveal</span></div>
+              <div><span class="icon-box"><i data-lucide="layout-dashboard"></i></span><span>Dashboard and detail views</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
