@@ -527,57 +527,154 @@
       <section class="scene" data-scene="7">
         <div class="page">
           <div class="page-header">
-            <div class="title-with-icon"><span class="icon-box"><i data-lucide="square-pen"></i></span><h2>Record detail</h2></div>
-            <p>Compact patient report.</p>
+            <span class="section-kicker">Analysis output</span>
+            <h2>Clear results with clinical reasoning</h2>
+            <p>Every case comes with a score, a likely serotype, and the exact factors driving the risk classification.</p>
           </div>
 
           <div class="detail-layout detail-layout-report">
             <section class="panel report-hero">
-              <div class="panel-header">
-                <div>
-                  <h3>DG-204</h3>
-                  <p>High-risk case</p>
+              <div class="report-summary-card">
+                <div class="report-card-top">
+                  <div>
+                    <h3>DG-204, Day 5 presentation</h3>
+                  </div>
+                  <div class="report-status">
+                    <span class="report-pill report-pill-danger"><i data-lucide="shield-alert"></i><span>High risk</span></span>
+                  </div>
                 </div>
-                <div class="report-status">
-                  <span class="report-pill report-pill-danger"><i data-lucide="shield-alert"></i><span>High</span></span>
-                  <span class="report-pill"><i data-lucide="badge-alert"></i><span>Referred</span></span>
+
+                <div class="report-summary-grid">
+                  <div class="report-patient-block">
+                    <span class="report-eyebrow">Likely serotype</span>
+                    <strong>DENV-2</strong>
+                  </div>
+                  <div class="report-summary-meta">
+                    <div class="detail-item">
+                      <span><i data-lucide="history"></i>Secondary concern</span>
+                      <strong>DENV-3 possible</strong>
+                    </div>
+                    <div class="detail-item detail-item-score">
+                      <span><i data-lucide="badge-alert"></i>Severity score</span>
+                      <strong><b>13</b><small>/ 20</small></strong>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="report-grid">
-                <div class="detail-item"><span><i data-lucide="calendar-days"></i>Date</span><strong>Mar 19, 2026</strong></div>
-                <div class="detail-item"><span><i data-lucide="timer"></i>Illness day</span><strong>Day 5</strong></div>
-                <div class="detail-item"><span><i data-lucide="thermometer"></i>39.2 C</span><strong>Fever</strong></div>
-                <div class="detail-item"><span><i data-lucide="heart-pulse"></i>108 bpm</span><strong>Pulse</strong></div>
-                <div class="detail-item"><span><i data-lucide="droplets"></i>88</span><strong>Platelets</strong></div>
-                <div class="detail-item"><span><i data-lucide="flame"></i>21%</span><strong>Hct rise</strong></div>
-                <div class="detail-item"><span><i data-lucide="history"></i>Yes</span><strong>Prior infection</strong></div>
-                <div class="detail-item"><span><i data-lucide="droplets"></i>DENV-2</span><strong>Serotype</strong></div>
-              </div>
-              <div class="report-flags">
-                <span class="signal-item"><i data-lucide="cross"></i><span>Abdominal pain</span></span>
-                <span class="signal-item"><i data-lucide="triangle-alert"></i><span>Persistent vomiting</span></span>
-                <span class="signal-item"><i data-lucide="activity"></i><span>Lethargy</span></span>
+
+                <div class="report-score-panel">
+                  <span class="report-eyebrow">Score breakdown</span>
+                  <div class="report-score-list">
+                    <div class="report-score-row">
+                      <label>Fever severity</label>
+                      <div class="report-meter"><span class="report-meter-fill" style="--meter: 100%"></span></div>
+                      <strong>4/4</strong>
+                    </div>
+                    <div class="report-score-row report-score-row-accent">
+                      <label>Platelet trend</label>
+                      <div class="report-meter"><span class="report-meter-fill" style="--meter: 75%"></span></div>
+                      <strong>3/4</strong>
+                    </div>
+                    <div class="report-score-row">
+                      <label>Warning signs</label>
+                      <div class="report-meter"><span class="report-meter-fill" style="--meter: 75%"></span></div>
+                      <strong>3/4</strong>
+                    </div>
+                    <div class="report-score-row report-score-row-muted">
+                      <label>Prior infection</label>
+                      <div class="report-meter"><span class="report-meter-fill" style="--meter: 75%"></span></div>
+                      <strong>3/4</strong>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
             <section class="panel report-side">
               <div class="panel-header">
                 <div>
-                  <h3>Clinical note</h3>
-                  <p>Next action.</p>
+                  <span class="section-kicker">Why this case escalates</span>
                 </div>
               </div>
-              <div class="status-card report-side-stack">
-                <div class="detail-item detail-item-strong"><span><i data-lucide="badge-alert"></i>Outcome</span><strong>Referred</strong></div>
-                <div class="report-note-points">
-                  <div class="logic-row"><i data-lucide="shield-alert"></i><span>Escalated for continued observation.</span></div>
-                  <div class="logic-row"><i data-lucide="droplets"></i><span>Low platelet trend remains active.</span></div>
-                  <div class="logic-row"><i data-lucide="triangle-alert"></i><span>Persistent warning signs require monitoring.</span></div>
+              <div class="report-reason-stack">
+                <article class="report-reason-card is-critical">
+                  <span class="report-reason-label">Critical, fever</span>
+                  <p>Temperature at 39.2 C keeps this case in an unstable range, not routine febrile presentation.</p>
+                </article>
+                <article class="report-reason-card is-warning">
+                  <span class="report-reason-label">Hematology, platelets</span>
+                  <p>Platelets dropped to 88 x10³. The trend supports high-risk classification and increased monitoring.</p>
+                </article>
+                <article class="report-reason-card is-warning">
+                  <span class="report-reason-label">Leak risk, hematocrit</span>
+                  <p>Marked Hct rise adds concern for plasma leakage. This should not be triaged as medium.</p>
+                </article>
+                <article class="report-reason-card is-context">
+                  <span class="report-reason-label">Context, prior infection</span>
+                  <p>Secondary dengue concern raises downside risk. Deterioration can accelerate faster than raw vitals suggest.</p>
+                </article>
+                <article class="report-reason-card is-context">
+                  <span class="report-reason-label">Timing, day 5 window</span>
+                  <p>Late-phase presentation aligns with the period of highest escalation probability.</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="panel report-insights">
+              <div class="panel-header">
+                <div>
+                  <h3>Decision support</h3>
+                  <p>A more product-real treatment for the same slide.</p>
                 </div>
-                <div class="button-row">
-                  <button class="button button-primary"><i data-lucide="save"></i><span>Save updates</span></button>
-                  <button class="button"><i data-lucide="x"></i><span>Close detail</span></button>
-                </div>
+              </div>
+              <div class="report-infographic-grid">
+                <article class="report-infographic-card report-infographic-card-strong">
+                  <span class="report-infographic-label"><i data-lucide="siren"></i>Escalation summary</span>
+                  <strong>13 / 16 score, 82% risk probability</strong>
+                  <p>Fast, readable output for clinicians who need one confident next action instead of a generic alert.</p>
+                  <div class="report-mini-strip">
+                    <div class="mini-stat">
+                      <span><i data-lucide="badge-alert"></i>Outcome</span>
+                      <strong>Referred</strong>
+                    </div>
+                    <div class="mini-stat">
+                      <span><i data-lucide="clock-3"></i>Critical window</span>
+                      <strong>24 hrs</strong>
+                    </div>
+                    <div class="mini-stat">
+                      <span><i data-lucide="shield-plus"></i>Monitoring</span>
+                      <strong>Continuous</strong>
+                    </div>
+                  </div>
+                </article>
+                <article class="report-infographic-card">
+                  <span class="report-infographic-label"><i data-lucide="shield-plus"></i>Escalation path</span>
+                  <strong>Observation to referral</strong>
+                  <p>The case moves from intake to referral only when clinical signals converge, not from a single abnormal input.</p>
+                  <div class="report-path">
+                    <div class="report-path-step is-done">Intake</div>
+                    <div class="report-path-step is-done">Analysis</div>
+                    <div class="report-path-step is-live">Referral</div>
+                    <div class="report-path-step">Follow-up</div>
+                  </div>
+                </article>
+                <article class="report-infographic-card report-infographic-card-wide">
+                  <div class="report-chart-grid">
+                    <article class="report-chart-card">
+                      <div class="analysis-visual-head">
+                        <span><i data-lucide="chart-column"></i>Vitals trajectory</span>
+                        <strong>Last 5 days</strong>
+                      </div>
+                      <div class="chart-wrap report-chart-wrap"><canvas id="detail-vitals-chart"></canvas></div>
+                    </article>
+                    <article class="report-chart-card">
+                      <div class="analysis-visual-head">
+                        <span><i data-lucide="activity"></i>Score contribution</span>
+                        <strong>What pushed it high</strong>
+                      </div>
+                      <div class="chart-wrap report-chart-wrap report-chart-wrap-short"><canvas id="detail-driver-chart"></canvas></div>
+                    </article>
+                  </div>
+                </article>
               </div>
             </section>
           </div>

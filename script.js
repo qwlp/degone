@@ -61,7 +61,7 @@ function fitScenesToViewport() {
       availableHeight / pageHeight,
     );
 
-    page.style.transform = `scale(${Math.max(scale - 0.005, 0.72)})`;
+    page.style.transform = `scale(${Math.max(scale - 0.005, 0.58)})`;
   });
 }
 
@@ -502,6 +502,89 @@ function buildCharts() {
       },
     },
   });
+
+  createChart("detail-vitals-chart", {
+    type: "line",
+    data: {
+      labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
+      datasets: [
+        {
+          label: "Temperature",
+          data: [38.1, 38.4, 38.7, 39.0, 39.2],
+          borderColor: rose,
+          backgroundColor: "rgba(85, 127, 205, 0.12)",
+          tension: 0.35,
+          pointRadius: 3,
+          yAxisID: "y",
+        },
+        {
+          label: "Platelets",
+          data: [132, 120, 112, 97, 88],
+          borderColor: amber,
+          backgroundColor: "rgba(112, 153, 225, 0.10)",
+          tension: 0.35,
+          pointRadius: 3,
+          yAxisID: "y1",
+        },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      animation,
+      plugins: {
+        ...basePlugins,
+        legend: {
+          display: true,
+          labels: { color: "#5f6f85", boxWidth: 10, boxHeight: 10, usePointStyle: true },
+        },
+      },
+      scales: {
+        x: { ticks: { color: axisColor }, grid: { color: gridColor } },
+        y: {
+          position: "left",
+          ticks: { color: axisColor },
+          grid: { color: gridColor },
+          suggestedMin: 37.5,
+          suggestedMax: 39.8,
+        },
+        y1: {
+          position: "right",
+          ticks: { color: axisColor },
+          grid: { display: false },
+          suggestedMin: 70,
+          suggestedMax: 140,
+        },
+      },
+    },
+  });
+
+  createChart("detail-driver-chart", {
+    type: "bar",
+    data: {
+      labels: ["Platelets", "Warnings", "Fever", "Timing", "History"],
+      datasets: [{
+        data: [31, 24, 18, 15, 12],
+        backgroundColor: [amber, rose, sage, slate, "#b4c6e7"],
+        borderRadius: 10,
+      }],
+    },
+    options: {
+      maintainAspectRatio: false,
+      animation,
+      plugins: {
+        ...basePlugins,
+        legend: { display: false },
+      },
+      scales: {
+        x: { ticks: { color: axisColor }, grid: { display: false } },
+        y: {
+          ticks: { color: axisColor, callback(value) { return `${value}%`; } },
+          grid: { color: gridColor },
+          suggestedMax: 36,
+        },
+      },
+    },
+  });
 }
 
 function replayVisibleCharts(scene) {
@@ -555,7 +638,7 @@ function setScene(index) {
     window.setTimeout(playDashboardSequence, 500);
   }
 
-  if ([0, 2, 3, 4, 5].includes(currentScene)) {
+  if ([0, 2, 3, 4, 5, 6].includes(currentScene)) {
     window.setTimeout(() => {
       replayVisibleCharts(scenes[currentScene]);
     }, 260);
