@@ -100,7 +100,7 @@ input {
 }
 
 .scene-intro .page {
-  align-content: start;
+  align-content: center;
 }
 
 .scene-intro .page {
@@ -121,9 +121,9 @@ input {
   right: auto;
   grid-area: logo;
   justify-self: start;
-  width: min(100%, 420px);
+  width: auto;
   height: min(12vh, 92px);
-  align-self: start;
+  align-self: center;
   margin: 0;
 }
 
@@ -136,11 +136,20 @@ input {
 
 .scene-intro .intro-copy {
   grid-area: copy;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: end;
   padding-right: 32px;
 }
 
 .scene-intro .intro-preview {
   grid-area: preview;
+  align-self: end;
+}
+
+.scene-intro .intro-list {
+  margin-top: auto;
 }
 
 .page h2,
@@ -1768,9 +1777,9 @@ input {
 
   .scene-intro .slide-logo-hero {
     justify-self: start;
-    width: min(100%, 260px);
+    width: auto;
     height: 72px;
-    align-self: start;
+    align-self: center;
     margin-bottom: 0;
   }
 
