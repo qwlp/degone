@@ -83,15 +83,8 @@ input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 92px;
-  height: 92px;
-  padding: 10px;
-  border: 1px solid rgba(189, 208, 232, 0.78);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 14px 34px rgba(85, 127, 205, 0.14);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  width: 220px;
+  height: 88px;
 }
 
 .slide-logo img {
@@ -107,8 +100,47 @@ input {
 }
 
 .scene-intro .page {
+  align-content: start;
+}
+
+.scene-intro .page {
+  width: min(var(--content-width), calc(100vw - 48px));
+  margin: 0 auto;
   grid-template-columns: minmax(0, 1.05fr) minmax(460px, 0.95fr);
+  grid-template-areas:
+    "logo logo"
+    "copy preview";
+  grid-template-rows: auto auto;
   align-items: center;
+  gap: 16px 22px;
+}
+
+.scene-intro .slide-logo-hero {
+  position: relative;
+  top: auto;
+  right: auto;
+  grid-area: logo;
+  justify-self: start;
+  width: min(100%, 420px);
+  height: min(12vh, 92px);
+  align-self: start;
+  margin: 0;
+}
+
+.scene-intro .slide-logo-hero img {
+  width: auto;
+  height: 100%;
+  object-fit: fill;
+  object-position: left center;
+}
+
+.scene-intro .intro-copy {
+  grid-area: copy;
+  padding-right: 32px;
+}
+
+.scene-intro .intro-preview {
+  grid-area: preview;
 }
 
 .page h2,
@@ -144,13 +176,13 @@ input {
 
 .intro-copy,
 .closing-card {
-  padding-right: 120px;
+  padding-right: 244px;
 }
 
 .page-header {
   display: grid;
   gap: 8px;
-  padding-right: 120px;
+  padding-right: 244px;
 }
 
 .page-header p {
@@ -1714,16 +1746,36 @@ input {
   }
 
   .slide-logo {
-    width: 72px;
-    height: 72px;
-    padding: 8px;
-    border-radius: 16px;
+    width: 160px;
+    height: 64px;
   }
 
   .page-header,
   .intro-copy,
   .closing-card {
-    padding-right: 84px;
+    padding-right: 176px;
+  }
+
+  .scene-intro .page {
+    width: calc(100vw - 24px);
+    margin: 0 auto;
+    grid-template-areas:
+      "logo"
+      "copy"
+      "preview";
+    grid-template-rows: auto;
+  }
+
+  .scene-intro .slide-logo-hero {
+    justify-self: start;
+    width: min(100%, 260px);
+    height: 72px;
+    align-self: start;
+    margin-bottom: 0;
+  }
+
+  .scene-intro .intro-copy {
+    padding-right: 0;
   }
 
   .preview-grid,
